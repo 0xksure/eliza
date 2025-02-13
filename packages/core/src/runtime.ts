@@ -70,6 +70,12 @@ function isDirectoryItem(item: any): item is DirectoryItem {
     );
 }
 
+export enum Clients {
+    // ... existing code ...
+    AINFT = 'ainft',
+    // ... existing code ...
+}
+
 export class AgentRuntime implements IAgentRuntime {
     /**
      * Default count for recent messages to be kept in memory.
@@ -679,12 +685,12 @@ export class AgentRuntime implements IAgentRuntime {
                             knowledgeCount: existingKnowledge.length,
                             firstResult: existingKnowledge[0]
                                 ? {
-                                      id: existingKnowledge[0].id,
-                                      agentId: existingKnowledge[0].agentId,
-                                      contentLength:
-                                          existingKnowledge[0].content.text
-                                              .length,
-                                  }
+                                    id: existingKnowledge[0].id,
+                                    agentId: existingKnowledge[0].agentId,
+                                    contentLength:
+                                        existingKnowledge[0].content.text
+                                            .length,
+                                }
                                 : null,
                             results: existingKnowledge.map((k) => ({
                                 id: k.id,
@@ -887,10 +893,10 @@ export class AgentRuntime implements IAgentRuntime {
                                 `[RAG Directory] Failed to process file: ${file}`,
                                 error instanceof Error
                                     ? {
-                                          name: error.name,
-                                          message: error.message,
-                                          stack: error.stack,
-                                      }
+                                        name: error.name,
+                                        message: error.message,
+                                        stack: error.stack,
+                                    }
                                     : error,
                             );
                         }
@@ -910,10 +916,10 @@ export class AgentRuntime implements IAgentRuntime {
                 `[RAG Directory] Failed to process directory: ${sanitizedDir}`,
                 error instanceof Error
                     ? {
-                          name: error.name,
-                          message: error.message,
-                          stack: error.stack,
-                      }
+                        name: error.name,
+                        message: error.message,
+                        stack: error.stack,
+                    }
                     : error,
             );
             throw error; // Re-throw to let caller handle it
@@ -1478,12 +1484,12 @@ Text: ${attachment.text}
             lore,
             adjective:
                 this.character.adjectives &&
-                this.character.adjectives.length > 0
+                    this.character.adjectives.length > 0
                     ? this.character.adjectives[
-                          Math.floor(
-                              Math.random() * this.character.adjectives.length,
-                          )
-                      ]
+                    Math.floor(
+                        Math.random() * this.character.adjectives.length,
+                    )
+                    ]
                     : "",
             knowledge: formattedKnowledge,
             knowledgeData: knowledgeData,
@@ -1498,70 +1504,70 @@ Text: ${attachment.text}
             topic:
                 this.character.topics && this.character.topics.length > 0
                     ? this.character.topics[
-                          Math.floor(
-                              Math.random() * this.character.topics.length,
-                          )
-                      ]
+                    Math.floor(
+                        Math.random() * this.character.topics.length,
+                    )
+                    ]
                     : null,
             topics:
                 this.character.topics && this.character.topics.length > 0
                     ? `${this.character.name} is interested in ` +
-                      this.character.topics
-                          .sort(() => 0.5 - Math.random())
-                          .slice(0, 5)
-                          .map((topic, index, array) => {
-                              if (index === array.length - 2) {
-                                  return topic + " and ";
-                              }
-                              // if last topic, don't add a comma
-                              if (index === array.length - 1) {
-                                  return topic;
-                              }
-                              return topic + ", ";
-                          })
-                          .join("")
+                    this.character.topics
+                        .sort(() => 0.5 - Math.random())
+                        .slice(0, 5)
+                        .map((topic, index, array) => {
+                            if (index === array.length - 2) {
+                                return topic + " and ";
+                            }
+                            // if last topic, don't add a comma
+                            if (index === array.length - 1) {
+                                return topic;
+                            }
+                            return topic + ", ";
+                        })
+                        .join("")
                     : "",
             characterPostExamples:
                 formattedCharacterPostExamples &&
-                formattedCharacterPostExamples.replaceAll("\n", "").length > 0
+                    formattedCharacterPostExamples.replaceAll("\n", "").length > 0
                     ? addHeader(
-                          `# Example Posts for ${this.character.name}`,
-                          formattedCharacterPostExamples,
-                      )
+                        `# Example Posts for ${this.character.name}`,
+                        formattedCharacterPostExamples,
+                    )
                     : "",
             characterMessageExamples:
                 formattedCharacterMessageExamples &&
-                formattedCharacterMessageExamples.replaceAll("\n", "").length >
+                    formattedCharacterMessageExamples.replaceAll("\n", "").length >
                     0
                     ? addHeader(
-                          `# Example Conversations for ${this.character.name}`,
-                          formattedCharacterMessageExamples,
-                      )
+                        `# Example Conversations for ${this.character.name}`,
+                        formattedCharacterMessageExamples,
+                    )
                     : "",
             messageDirections:
                 this.character?.style?.all?.length > 0 ||
-                this.character?.style?.chat.length > 0
+                    this.character?.style?.chat.length > 0
                     ? addHeader(
-                          "# Message Directions for " + this.character.name,
-                          (() => {
-                              const all = this.character?.style?.all || [];
-                              const chat = this.character?.style?.chat || [];
-                              return [...all, ...chat].join("\n");
-                          })(),
-                      )
+                        "# Message Directions for " + this.character.name,
+                        (() => {
+                            const all = this.character?.style?.all || [];
+                            const chat = this.character?.style?.chat || [];
+                            return [...all, ...chat].join("\n");
+                        })(),
+                    )
                     : "",
 
             postDirections:
                 this.character?.style?.all?.length > 0 ||
-                this.character?.style?.post.length > 0
+                    this.character?.style?.post.length > 0
                     ? addHeader(
-                          "# Post Directions for " + this.character.name,
-                          (() => {
-                              const all = this.character?.style?.all || [];
-                              const post = this.character?.style?.post || [];
-                              return [...all, ...post].join("\n");
-                          })(),
-                      )
+                        "# Post Directions for " + this.character.name,
+                        (() => {
+                            const all = this.character?.style?.all || [];
+                            const post = this.character?.style?.post || [];
+                            return [...all, ...post].join("\n");
+                        })(),
+                    )
                     : "",
 
             //old logic left in for reference
@@ -1595,9 +1601,9 @@ Text: ${attachment.text}
             goals:
                 goals && goals.length > 0
                     ? addHeader(
-                          "# Goals\n{{agentName}} should prioritize accomplishing the objectives that are in progress.",
-                          goals,
-                      )
+                        "# Goals\n{{agentName}} should prioritize accomplishing the objectives that are in progress.",
+                        goals,
+                    )
                     : "",
             goalsData,
             recentMessages:
@@ -1654,16 +1660,16 @@ Text: ${attachment.text}
             actions:
                 actionsData.length > 0
                     ? addHeader(
-                          "# Available Actions",
-                          formatActions(actionsData),
-                      )
+                        "# Available Actions",
+                        formatActions(actionsData),
+                    )
                     : "",
             actionExamples:
                 actionsData.length > 0
                     ? addHeader(
-                          "# Action Examples",
-                          composeActionExamples(actionsData, 10),
-                      )
+                        "# Action Examples",
+                        composeActionExamples(actionsData, 10),
+                    )
                     : "",
             evaluatorsData,
             evaluators:
